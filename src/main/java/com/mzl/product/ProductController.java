@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 public class ProductController {
@@ -27,4 +30,24 @@ public class ProductController {
     mv.addObject("products", productService.getProductList());
     return mv;
   }
+
+  @RequestMapping(value = "product/new")
+  public String newProductForm(Model model) {
+    model.addAttribute(new ProductForm());
+    return "product/new";
+  }
+
+  @RequestMapping(value = "product/new", method = RequestMethod.POST)
+  public String newProduct(@Valid @ModelAttribute ProductForm signupForm, Errors errors, RedirectAttributes ra) {
+    if (errors.hasErrors()) {
+      return "product/new";
+    }
+//    Account account = productService.save(signupForm.createAccount());
+
+    // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
+    MessageHelper.addSuccessAttribute(ra, "signup.success");
+    return "redirect:/product/list";
+  }
+
+
 }

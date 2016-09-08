@@ -1,12 +1,13 @@
 package com.mzl.service;
 
-import com.mzl.product.Product;
+import com.mzl.dao.ProductRepository;
+import com.mzl.model.Product;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,12 +17,24 @@ import java.util.List;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ProductService {
 
+  @Autowired
+  private ProductRepository productRepository;
+
   public List<Product> getProductList() {
-
-    List<Product> products = new ArrayList<>();
-    products.add(new Product("Gardenia", "1 description", 100.01, "Bread", false));
-    products.add(new Product("Corned Beef", "2 description", 100.40, "Can Goods", true));
-
-    return products;
+    return productRepository.findAll();
   }
+
+  public Product save(Product product) {
+    return productRepository.save(product);
+  }
+
+  public void delete(long productId) {
+    productRepository.delete(productId);
+  }
+
+  public Product findById(long productId) {
+    return productRepository.findOne(productId);
+  }
+
+
 }

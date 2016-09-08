@@ -1,9 +1,20 @@
-package com.mzl.product;
+package com.mzl.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author paul.labis@practiceinsight.io
  */
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "product")
 public class Product {
+  @Id
+  @GeneratedValue
+  private Long id;
 
   private String name;
   private String description;
@@ -11,12 +22,23 @@ public class Product {
   private String category;
   private boolean available;
 
+  public Product() {
+  }
+
   public Product(String name, String description, double price, String category, boolean available) {
     this.name = name;
     this.description = description;
     this.price = price;
     this.category = category;
     this.available = available;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getName() {
