@@ -12,53 +12,58 @@
 <div th:replace="fragments/header :: header">&nbsp;</div>
 <div class="container">
     <!-- /* Handle the flash message */-->
-    <form class="form-narrow form-horizontal" method="post" th:action="@{/product/new}" th:object="${productForm}">
+    <form class="form-narrow form-horizontal" method="post" th:action="@{/product/update}" th:object="${productForm}">
         <th:block th:if="${message != null}">
             <!-- /* The message code is returned from the @Controller */ -->
             <div th:replace="fragments/alert :: alert (type=${#strings.toLowerCase(message.type)}, message=#{${message.message}(${#authentication.name})})">&nbsp;</div>
         </th:block>
         <fieldset>
             <legend>Add Product</legend>
+            <input type="hidden" th:value="${product.id}" th:name="id" th:id="id" name="id" />
             <div class="form-group">
                 <label for="inputName" class="col-lg-3 control-label">Name</label>
                 <div class="col-lg-9">
-                    <input type="text" class="form-control" id="inputName" placeholder="Product Name" th:field="*{name}" name="name" />
+                    <input type="text" class="form-control" id="inputName" placeholder="Product Name"
+                           th:value="${product.name}" th:name="name" th:id="name" name="name" />
                 </div>
             </div>
             </br>
             <div class="form-group">
                 <label for="inputDescription" class="col-lg-3 control-label">Description</label>
                 <div class="col-lg-9">
-                    <input type="text" class="form-control" id="inputDescription" placeholder="Description" th:field="*{description}" name="description" />
+                    <input type="text" class="form-control" id="inputDescription" placeholder="Description"
+                           th:value="${product.description}" th:name="description" th:id="description"  name="description" />
                 </div>
             </div>
             </br>
             <div class="form-group">
                 <label for="inputPrice" class="col-lg-3 control-label">Price</label>
                 <div class="col-lg-9">
-                    <input type="text" class="form-control" id="inputPrice" placeholder="Price" th:field="*{price}" name="price" />
+                    <input type="text" class="form-control" id="inputPrice" placeholder="Price"
+                           th:value="${product.price}" th:name="price" th:id="price" name="price" />
                 </div>
             </div>
             </br>
             <div class="form-group">
                 <label for="inputCategory" class="col-lg-3 control-label">Category</label>
                 <div class="col-lg-9">
-                    <input type="text" class="form-control" id="inputCategory" placeholder="Category" th:field="*{category}" name="category" />
+                    <input type="text" class="form-control" id="inputCategory" placeholder="Category"
+                           th:value="${product.category.id}" th:name="category" th:id="category" name="category" />
                 </div>
             </div>
             </br>
             <div class="form-group">
                 <label for="inputAvailable" class="col-lg-3 control-label">Available</label>
                 <div class="col-lg-9">
-                    <input type="text" class="form-control" id="inputAvailable" placeholder="Availability" th:field="*{available}" name="available" />
+                    <input type="text" class="form-control" id="inputAvailable" placeholder="Availability"
+                           th:value="${product.available}" th:name="available" th:id="available" name="available" />
                 </div>
             </div>
 
 
             <div class="form-group">
-                <div class="col-lg-offset-4 col-lg-10">
-                    <a th:href="@{/product/update/{id}(id=${product.id})}" class="btn btn-su">Update</a>
-                    <a href="/product/list" class="btn btn-default">Cancel</a>
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-default">Update</button>
                 </div>
                 </br>
             </div>

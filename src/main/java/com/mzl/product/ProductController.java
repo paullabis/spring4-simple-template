@@ -60,15 +60,29 @@ public class ProductController {
     return "redirect:/product/list";
   }
 
-    @RequestMapping(value = "product/update", method = RequestMethod.GET)
-    public String updateProduct(@Valid @ModelAttribute ProductForm productForm,@RequestParam(value="id") long id, RedirectAttributes ra) {
-        Product productId = productService.findById(id);
+  @RequestMapping(value = "product/update", method = RequestMethod.GET)
+  public ModelAndView updateProductForm(
+      @Valid @ModelAttribute ProductForm productForm,
+      @RequestParam(value="id") long id) {
+    Product product = productService.findById(id);
+    ModelAndView mv = new ModelAndView();
+    mv.addObject("product", product);
+    return mv;
+  }
 
-        if (productId != null) {
-            productService.save(productForm.createProduct());
-        }
+  @RequestMapping(value = "product/update", method = RequestMethod.POST)
+  public String updateProduct(@Valid @ModelAttribute ProductForm productForm, RedirectAttributes ra) {
+    Category category = categoryService.findById(productForm.getCategory());
+    Product product = productService.findById(productForm.getId());
+    product.setCategory(category);
+    product.setName(productForm.getName());
+    product.setDescription(productForm.getDescription());
+    product.setPrice(productForm.getPrice());
+    product.setAvailable(productForm.isAvailable());
+    productService.save(product);
 
-        MessageHelper.addSuccessAttribute(ra, "signup.success");
-        return "redirect:/product/list";
-    }
+    MessageHelper.addSuccessAttribute(ra, "product.update.success");
+    return "redirect:/product/list";
+  }
+
 }
