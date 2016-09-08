@@ -25,6 +25,7 @@ public class CategoryService {
     if (categories == null || categories.isEmpty()) {
       save(new Category("Bread", "Any kind of bread."));
       save(new Category("Liquor", "Any kind of alcoholic beverages."));
+      categories = categoryRepository.findAll();
     }
     return categories;
   }
