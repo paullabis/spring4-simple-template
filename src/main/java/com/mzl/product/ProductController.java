@@ -2,7 +2,9 @@ package com.mzl.product;
 
 import com.mzl.account.Account;
 import com.mzl.account.AccountService;
+import com.mzl.model.Category;
 import com.mzl.model.Product;
+import com.mzl.service.CategoryService;
 import com.mzl.service.ProductService;
 import com.mzl.signup.SignupForm;
 import com.mzl.support.web.MessageHelper;
@@ -26,6 +28,9 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+  @Autowired
+  private CategoryService categoryService;
+
   @RequestMapping(value = "product/list", method = RequestMethod.GET)
   public ModelAndView getProductsPage() {
     ModelAndView mv = new ModelAndView();
@@ -46,7 +51,10 @@ public class ProductController {
 //    }
 //    Account account = productService.save(signupForm.createAccount());
 
-    productService.save(productForm.createProduct());
+    Category category = categoryService.findById(productForm.getCategory());
+    Product product = productForm.createProduct();
+    product.setCategory(category);
+    productService.save(product);
 
 
     // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html

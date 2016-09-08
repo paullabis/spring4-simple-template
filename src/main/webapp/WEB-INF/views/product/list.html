@@ -21,7 +21,9 @@
     <br/> <h2>Product List</h2>
     <br/>
     <br/>
-    <br/><button><a href="/product/new">New Product</a></button>
+    <br/><a class="btn btn-warning" href="/product/new">New Product</a>
+    <br/>
+    <br/>
     <table class="table">
         <tr>
             <th></th>
@@ -39,7 +41,10 @@
             <td th:text="${product.name}">name</td>
             <td th:text="${product.description}">description</td>
             <td th:text="${product.price}">price</td>
-            <td th:text="${product.category}">category</td>
+            <td>
+                <a th:text="${product.category.name}"
+                   th:href="@{/category/info?id={id}(id=${product.category.id})}" class="btn btn-info">hello</a>
+            </td>
             <td th:text="${product.available}">true</td>
             <td>
                 <a href="/product/update/{id}" class="btn btn-success">Update</a>

@@ -52,6 +52,6 @@ public class ProductForm {
     }
 
     public Product createProduct() {
-        return new Product(getName(), getDescription(), getPrice(), getCategory(), isAvailable());
+        return new Product(getName(), getDescription(), getPrice(), null, isAvailable());
     }
 }

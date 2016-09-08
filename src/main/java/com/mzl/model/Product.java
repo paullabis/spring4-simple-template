@@ -1,8 +1,11 @@
 package com.mzl.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -17,13 +20,15 @@ public class Product {
   private String name;
   private String description;
   private double price;
-  private String category;
   private boolean available;
+
+  @ManyToOne(fetch = FetchType.EAGER)
+  private Category category;
 
   public Product() {
   }
 
-  public Product(String name, String description, double price, String category, boolean available) {
+  public Product(String name, String description, double price, Category category, boolean available) {
     this.name = name;
     this.description = description;
     this.price = price;
@@ -63,11 +68,11 @@ public class Product {
     this.price = price;
   }
 
-  public String getCategory() {
+  public Category getCategory() {
     return category;
   }
 
-  public void setCategory(String category) {
+  public void setCategory(Category category) {
     this.category = category;
   }
 

@@ -1,6 +1,8 @@
 package com.mzl.service;
 
+import com.mzl.dao.CategoryRepository;
 import com.mzl.dao.ProductRepository;
+import com.mzl.model.Category;
 import com.mzl.model.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
