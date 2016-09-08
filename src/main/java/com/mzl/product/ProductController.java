@@ -46,18 +46,11 @@ public class ProductController {
 
   @RequestMapping(value = "product/new", method = RequestMethod.POST)
   public String newProduct(@Valid @ModelAttribute ProductForm productForm, RedirectAttributes ra) {
-//    if (errors.hasErrors()) {
-//      return "product/new";
-//    }
-//    Account account = productService.save(signupForm.createAccount());
-
     Category category = categoryService.findById(productForm.getCategory());
     Product product = productForm.createProduct();
     product.setCategory(category);
     productService.save(product);
 
-
-    // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
     MessageHelper.addSuccessAttribute(ra, "product.create.success");
     return "redirect:/product/list";
   }
@@ -66,7 +59,6 @@ public class ProductController {
   public String deleteProduct(@PathVariable(value="id") long id, RedirectAttributes ra) {
     productService.delete(id);
 
-    // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
     MessageHelper.addSuccessAttribute(ra, "product.delete.success");
     return "redirect:/product/list";
   }
