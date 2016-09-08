@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author paul.labis@practiceinsight.io
- */
+
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ProductService {

@@ -2,6 +2,7 @@ package com.mzl.product;
 
 import com.mzl.account.Account;
 import com.mzl.account.AccountService;
+import com.mzl.model.Product;
 import com.mzl.service.ProductService;
 import com.mzl.signup.SignupForm;
 import com.mzl.support.web.MessageHelper;
@@ -39,11 +40,14 @@ public class ProductController {
   }
 
   @RequestMapping(value = "product/new", method = RequestMethod.POST)
-  public String newProduct(@Valid @ModelAttribute ProductForm signupForm, Errors errors, RedirectAttributes ra) {
-    if (errors.hasErrors()) {
-      return "product/new";
-    }
+  public String newProduct(@Valid @ModelAttribute ProductForm productForm, RedirectAttributes ra) {
+//    if (errors.hasErrors()) {
+//      return "product/new";
+//    }
 //    Account account = productService.save(signupForm.createAccount());
+
+    productService.save(productForm.createProduct());
+
 
     // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
     MessageHelper.addSuccessAttribute(ra, "signup.success");
@@ -59,5 +63,15 @@ public class ProductController {
     return "redirect:/product/list";
   }
 
+    @RequestMapping(value = "product/update/{id}", method = RequestMethod.GET)
+    public String updateProduct(@Valid @ModelAttribute ProductForm productForm,@PathVariable(value="id") long id, RedirectAttributes ra) {
+        Product productId = productService.findById(id);
 
+        if (productId != null) {
+            productService.save(productForm.createProduct());
+        }
+
+        MessageHelper.addSuccessAttribute(ra, "signup.success");
+        return "redirect:/product/list";
+    }
 }

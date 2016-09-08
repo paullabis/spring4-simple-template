@@ -5,9 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * @author paul.labis@practiceinsight.io
- */
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "product")

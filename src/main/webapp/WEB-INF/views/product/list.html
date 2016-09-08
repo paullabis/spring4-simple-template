@@ -18,10 +18,10 @@
     </th:block>
     <p>
     <br/>
-    <br/> Product List
+    <br/> <h2>Product List</h2>
     <br/>
     <br/>
-    <br/><button>New Product</button>
+    <br/><button><a href="/product/new">New Product</a></button>
     <table class="table">
         <tr>
             <th></th>
@@ -42,7 +42,7 @@
             <td th:text="${product.category}">category</td>
             <td th:text="${product.available}">true</td>
             <td>
-                <button>Update</button>
+                <a href="/product/update/{id}" class="btn btn-success">Update</a>
                 <a th:href="@{/product/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
