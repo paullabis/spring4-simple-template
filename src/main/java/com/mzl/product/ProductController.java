@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,6 +47,15 @@ public class ProductController {
 
     // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
     MessageHelper.addSuccessAttribute(ra, "signup.success");
+    return "redirect:/product/list";
+  }
+
+  @RequestMapping(value = "product/delete/{id}", method = RequestMethod.GET)
+  public String deleteProduct(@PathVariable(value="id") long id, RedirectAttributes ra) {
+    productService.delete(id);
+
+    // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
+    MessageHelper.addSuccessAttribute(ra, "product.delete.success");
     return "redirect:/product/list";
   }
 
