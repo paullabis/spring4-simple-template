@@ -58,7 +58,7 @@ public class ProductController {
 
 
     // see /WEB-INF/i18n/messages.properties and /WEB-INF/views/homeSignedIn.html
-    MessageHelper.addSuccessAttribute(ra, "signup.success");
+    MessageHelper.addSuccessAttribute(ra, "product.create.success");
     return "redirect:/product/list";
   }
 
